@@ -16,11 +16,15 @@ export class MongoPrescriptionRepository implements IPrescriptionRepository {
       id: doc._id?.toString() || doc.id,
       patientId: doc.patientId,
       doctorId: doc.doctorId,
+      patientName: doc.patientName,
+      doctorName: doc.doctorName,
       hospitalId: doc.hospitalId,
       status: doc.status,
+      validationStatus: doc.validationStatus,
       medicines: doc.medicines,
+      pharmacyMedicines: doc.pharmacyMedicines,
       createdAt: doc.createdAt,
-      updatedAt: doc.updatedAt
+      updatedAt: doc.updatedAt,
     };
   }
 
