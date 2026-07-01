@@ -1,0 +1,3 @@
+{
+  "/api/clinical/appointments/sync/route": "app/api/clinical/appointments/sync/route.js"
+}

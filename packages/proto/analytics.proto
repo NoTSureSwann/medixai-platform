@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package analytics;
+
+option go_package = "github.com/medixai/analytics-service/proto/analytics";
+
+service AnalyticsService {
+  rpc TrackActivity (ActivityRequest) returns (ActivityResponse);
+  rpc GenerateMonthlyReport (ReportRequest) returns (ReportResponse);
+  rpc GetGeospatialData (GeospatialRequest) returns (GeospatialResponse);
+}
+
+message ActivityRequest {
+  string userId = 1;
+  string role = 2;
+  string action = 3;
+  string details = 4;
+}
+
+message ActivityResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ReportRequest {
+  string month = 1;
+  string year = 2;
+}
+
+message ReportResponse {
+  string reportId = 1;
+  string pdfUrl = 2;
+  int64 totalAppointments = 3;
+  double totalRevenue = 4;
+  string status = 5;
+}
+
+message GeospatialRequest {
+  string region = 1;
+}
+
+message DiseaseData {
+  string disease = 1;
+  int32 cases = 2;
+  double latitude = 3;
+  double longitude = 4;
+}
+
+message GeospatialResponse {
+  repeated DiseaseData data = 1;
+}
