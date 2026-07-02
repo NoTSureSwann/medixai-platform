@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "tsx scripts/seed-rag.ts"
+    "seed": "npx tsx scripts/seed-rag.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.5",
