@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
 import { MongoComplaintRepository } from "@/infrastructure/database/repositories/MongoComplaintRepository";
 import { ComplaintStatus } from "@/core/entities/Complaint";
