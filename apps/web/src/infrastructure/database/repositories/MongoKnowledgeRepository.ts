@@ -49,7 +49,7 @@ export class MongoKnowledgeRepository {
    * {
    *   "fields": [
    *     {
-   *       "numDimensions": 768, // Google text-embedding-004 has 768 dimensions
+   *       "numDimensions": 1024, // Voyage-3 has 1024 dimensions
    *       "path": "embedding",
    *       "similarity": "cosine",
    *       "type": "vector"
