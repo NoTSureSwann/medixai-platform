@@ -2,6 +2,11 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  experimental: {
+    serverActions: {
+      allowedOrigins: ['medixai-platform.vercel.app', '*.vercel.app', 'localhost:3000'],
+    },
+  },
   async headers() {
     return [
       {
