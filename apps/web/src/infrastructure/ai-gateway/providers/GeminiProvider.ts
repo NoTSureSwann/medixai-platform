@@ -4,7 +4,7 @@ import { createGoogleGenerativeAI } from "@ai-sdk/google";
 
 export class GeminiProvider implements IAIProvider {
   private config: ProviderConfig;
-  private provider: any;
+  private provider: ReturnType<typeof createGoogleGenerativeAI>;
 
   constructor(config: ProviderConfig) {
     this.config = config;

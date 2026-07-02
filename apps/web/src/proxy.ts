@@ -5,7 +5,7 @@ import { jwtVerify } from 'jose';
 // Our custom secret for the session JWT
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'fallback-secret-key-for-dev-only');
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const sessionCookie = request.cookies.get('session')?.value;
 
   if (!sessionCookie) {

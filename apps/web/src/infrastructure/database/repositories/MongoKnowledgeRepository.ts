@@ -83,6 +83,7 @@ export class MongoKnowledgeRepository {
         }
       ]).toArray();
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return results.map((doc: any) => ({
         id: doc._id.toString(),
         content: doc.content,
