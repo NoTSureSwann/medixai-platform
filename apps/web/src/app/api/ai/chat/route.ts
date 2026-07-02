@@ -1,79 +1,70 @@
-import { NextResponse } from "next/server";
+import { streamText } from "ai";
+import { createOpenAI } from "@ai-sdk/openai";
 import { withErrorHandler } from "@/shared/middlewares/errorHandler";
-import { AIOrchestrator } from "@/infrastructure/ai-gateway/orchestrator/AIOrchestrator";
-import { QdrantClient } from "@/infrastructure/ai-gateway/QdrantClient";
 import { EmbeddingsClient } from "@/infrastructure/ai-gateway/EmbeddingsClient";
-import { MongoMemoryRepository } from "@/infrastructure/database/repositories/MongoMemoryRepository";
-import { AgentContext } from "@/infrastructure/ai-gateway/agents/IAgent";
+import { MongoKnowledgeRepository } from "@/infrastructure/database/repositories/MongoKnowledgeRepository";
 import { z } from "zod";
 import { UserRole } from "@/core/entities/User";
-import { AIEvaluator } from "@/infrastructure/ai-gateway/evaluation/AIEvaluator";
 
 const chatSchema = z.object({
-  message: z.string().min(1, "Message is required"),
+  messages: z.array(z.object({
+    role: z.enum(["user", "assistant", "system"]),
+    content: z.string(),
+  })),
   role: z.nativeEnum(UserRole).optional().default(UserRole.PATIENT),
-  sessionId: z.string().optional().default("session_default"),
-  userId: z.string().optional().default("user_default"),
+  hospitalId: z.string().optional().default("DEFAULT_HOSPITAL"),
 });
 
-const qdrant = new QdrantClient();
+const groq = createOpenAI({
+  baseURL: "https://api.groq.com/openai/v1",
+  apiKey: process.env.GROQ_API_KEY || "",
+});
+
 const embeddings = new EmbeddingsClient();
-const orchestrator = new AIOrchestrator();
-const memoryRepo = new MongoMemoryRepository();
-const evaluator = new AIEvaluator();
+const knowledgeRepo = new MongoKnowledgeRepository();
 
 async function chatHandler(req: Request) {
   const body = await req.json();
   
   // 1. Validate Input
-  const { message, role, sessionId, userId } = chatSchema.parse(body);
-  const hospitalId = "DEFAULT_HOSPITAL"; // Simulate context
+  const { messages, role, hospitalId } = chatSchema.parse(body);
+  const latestMessage = messages[messages.length - 1]?.content || "";
 
-  // 2. Fetch Conversation Memory
-  const sessionMemory = await memoryRepo.getSessionMemory(userId, sessionId);
-  const history = sessionMemory?.messages || [];
+  // 2. Retrieval (RAG Pipeline)
+  const vector = await embeddings.generateEmbedding(latestMessage);
+  const searchResults = await knowledgeRepo.searchSimilar(vector, 3);
+  const retrievedContext = searchResults.map(res => res.content).join("\n\n");
 
-  // 3. Retrieval (RAG Pipeline)
-  const vector = await embeddings.generateEmbedding(message);
-  const searchResults = await qdrant.search("medical_kb", vector, 3);
-  const retrievedContext = searchResults.map(res => res.content);
+  // 3. Construct System Prompt
+  const systemPrompt = `
+    You are GoKlinik Assistant, an intelligent medical and operational assistant.
+    
+    [ROLE CONTEXT]
+    The user you are talking to is a: ${role}.
+    If User is PATIENT: Explain in simple terms. DO NOT prescribe medication. Remind them to see a doctor for formal diagnosis.
+    If User is DOCTOR: Provide high-level clinical summaries, references, and professional reasoning.
+    If User is ADMIN/PHARMACY: Focus on operational, inventory, or billing details.
+    
+    [TENANT CONTEXT]
+    Hospital ID: ${hospitalId}
+    
+    [RETRIEVED KNOWLEDGE BASE CONTEXT]
+    Please base your answers on the following verified knowledge base documents if relevant to the query:
+    ---
+    ${retrievedContext || "No specific documents found."}
+    ---
+    If the context doesn't answer the question, you can use your general medical knowledge but add a disclaimer.
+  `;
 
-  // 4. Orchestration & Generation
-  const context: AgentContext = {
-    role,
-    hospitalId,
-    history,
-    retrievedContext,
-  };
-
-  const responseText = await orchestrator.routeAndExecute(message, context);
-
-  // 5. Update Memory (Continuous Learning context)
-  await memoryRepo.addMessage(userId, hospitalId, sessionId, {
-    role: "user",
-    content: message,
-    timestamp: new Date()
+  // 4. Generate Stream
+  const result = streamText({
+    model: groq("llama-3.3-70b-versatile"),
+    system: systemPrompt,
+    messages: messages,
   });
-  
-  await memoryRepo.addMessage(userId, hospitalId, sessionId, {
-    role: "ai",
-    content: responseText,
-    timestamp: new Date()
-  });
 
-  // 6. Async AI Evaluation (LLM-as-a-judge)
-  evaluator.evaluate(message, responseText, retrievedContext).then(evalResult => {
-    console.log(`[Eval] Score: ${evalResult.score}. Reasoning: ${evalResult.reasoning}`);
-  }).catch(console.error);
-
-  // 7. Return API Response
-  return NextResponse.json({
-    reply: responseText,
-    metadata: {
-      citations: searchResults.map(res => ({ id: res.id, score: res.score })),
-      confidence: 0.95
-    }
-  });
+  // Automatically streams to the client
+  return result.toTextStreamResponse();
 }
 
 export const POST = withErrorHandler(chatHandler);

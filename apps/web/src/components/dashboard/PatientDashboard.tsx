@@ -6,6 +6,10 @@ import { Prescription } from "@/core/entities/Prescription";
 import { Polyclinic } from "@/core/entities/Polyclinic";
 import { Complaint } from "@/core/entities/Complaint";
 import { useAuth } from "@/contexts/AuthContext";
+import { GlassCard } from "@/components/ui/glass/GlassCard";
+import { GlassBadge } from "@/components/ui/glass/GlassBadge";
+import { GlassModal } from "@/components/ui/glass/GlassModal";
+import { Activity, Clock, ShieldCheck, FileText, ChevronRight } from "lucide-react";
 
 export const PatientDashboard = () => {
   const { user } = useAuth();
@@ -180,17 +184,17 @@ export const PatientDashboard = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-bold">Patient Overview</h2>
+        <h2 className="text-xl font-bold flex items-center gap-2"><Activity className="text-[var(--color-info)]" /> Patient Overview</h2>
         <button 
           onClick={downloadPDF}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700"
+          className="px-4 py-2 bg-[var(--color-info)] text-white rounded-lg text-sm font-medium hover:opacity-90 focus-ring shadow-lg shadow-[var(--color-info)]/20 transition-all"
         >
           Download Report (PDF)
         </button>
       </div>
 
       {/* Ajukan Keluhan Baru */}
-      <div className="bg-white p-6 rounded-lg border border-gray-200">
+      <GlassCard hoverEffect>
         <h3 className="font-semibold mb-4 text-lg">Ajukan Keluhan Medis (Symptoms & Complaints)</h3>
         <form onSubmit={handleComplaintSubmit} className="space-y-4 max-w-2xl">
           <div>
@@ -245,19 +249,19 @@ export const PatientDashboard = () => {
               required
             />
           </div>
-          <button type="submit" className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700">
+          <button type="submit" className="px-6 py-2 bg-[var(--color-info)] text-white rounded-lg font-medium hover:opacity-90 transition-all focus-ring shadow-lg shadow-[var(--color-info)]/20">
             Submit Keluhan
           </button>
         </form>
-      </div>
+      </GlassCard>
 
-      <div className="bg-white p-6 rounded-lg border border-gray-200">
+      <GlassCard hoverEffect>
         <div className="flex justify-between items-center mb-4">
-          <h3 className="font-semibold text-lg">Live Appointment Records</h3>
-          <span className={`text-xs px-2 py-1 rounded-full border ${syncStatus.includes('Active') || syncStatus.includes('Updated') ? 'bg-green-50 text-green-700 border-green-200' : 'bg-red-50 text-red-700 border-red-200'}`}>
+          <h3 className="font-semibold text-lg flex items-center gap-2"><Clock className="text-[var(--color-warning)]" /> Live Appointment Records</h3>
+          <GlassBadge variant={syncStatus.includes('Active') || syncStatus.includes('Updated') ? "success" : "emergency"}>
             <span className="inline-block w-2 h-2 rounded-full bg-current mr-1 animate-pulse"></span>
             {syncStatus}
-          </span>
+          </GlassBadge>
         </div>
         
         {appointments.length === 0 ? (
@@ -280,9 +284,9 @@ export const PatientDashboard = () => {
                     <td className="px-4 py-3">{apt.date} at {apt.time}</td>
                     <td className="px-4 py-3">{apt.doctor}</td>
                     <td className="px-4 py-3">
-                      <span className={`px-2 py-1 text-xs rounded-full ${apt.status === 'Confirmed' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}`}>
+                      <GlassBadge variant={apt.status === 'Confirmed' ? 'success' : 'warning'}>
                         {apt.status}
-                      </span>
+                      </GlassBadge>
                     </td>
                   </tr>
                 ))}
@@ -290,11 +294,11 @@ export const PatientDashboard = () => {
             </table>
           </div>
         )}
-      </div>
+      </GlassCard>
 
-      <div id="patient-report-content" className="grid grid-cols-1 md:grid-cols-2 gap-6 p-2 bg-gray-50 rounded-lg">
-        <div className="bg-white p-6 rounded-lg border border-gray-200">
-          <h3 className="font-semibold mb-4">Riwayat Keluhan Saya</h3>
+      <div id="patient-report-content" className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <GlassCard>
+          <h3 className="font-semibold mb-4 flex items-center gap-2"><FileText className="text-[var(--color-info)] h-5 w-5" /> Riwayat Keluhan Saya</h3>
           {complaints.length === 0 && (
             <p className="text-gray-500 text-sm">Tidak ada keluhan aktif.</p>
           )}
@@ -304,15 +308,15 @@ export const PatientDashboard = () => {
                 <span className="font-medium text-sm text-blue-700">
                   {polyclinics.find(p => p.id === c.polyclinicId)?.name || 'Unknown'}
                 </span>
-                <span className="text-xs px-2 py-1 bg-yellow-100 text-yellow-800 rounded">{c.status}</span>
+                <GlassBadge variant={c.status === 'SUBMITTED' ? 'warning' : 'success'}>{c.status}</GlassBadge>
               </div>
-              <p className="text-xs text-gray-500 font-medium mt-1">Gejala: {c.symptoms}</p>
-              <p className="text-sm text-gray-700 mt-1">{c.complaintText}</p>
+              <p className="text-xs text-muted-foreground font-medium mt-1">Gejala: {c.symptoms}</p>
+              <p className="text-sm mt-1">{c.complaintText}</p>
             </div>
           ))}
-        </div>
+        </GlassCard>
 
-        <div className="bg-white p-6 rounded-lg border border-gray-200">
+        <GlassCard>
           <h3 className="font-semibold mb-4">My Pending Bills</h3>
           {invoices.filter(i => i.status === InvoiceStatus.UNPAID).length === 0 && (
             <p className="text-gray-500 text-sm">No pending bills.</p>
@@ -326,16 +330,16 @@ export const PatientDashboard = () => {
               </div>
               <button 
                 onClick={() => setShowModal(invoice)}
-                className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700"
+                className="px-4 py-2 bg-[var(--color-emergency)] text-white rounded-lg text-sm font-medium hover:opacity-90 shadow-lg shadow-[var(--color-emergency)]/20 transition-all focus-ring"
               >
                 Pay Now
               </button>
             </div>
           ))}
-        </div>
+        </GlassCard>
 
-        <div className="bg-white p-6 rounded-lg border border-gray-200">
-          <h3 className="font-semibold mb-4">My Prescriptions</h3>
+        <GlassCard className="md:col-span-2">
+          <h3 className="font-semibold mb-4 flex items-center gap-2"><Activity className="text-[var(--color-success)] h-5 w-5" /> My Prescriptions</h3>
           {prescriptions.length === 0 && (
             <p className="text-gray-500 text-sm">No prescriptions.</p>
           )}
@@ -343,26 +347,29 @@ export const PatientDashboard = () => {
             <div key={rx.id} className="p-4 border border-gray-200 rounded-lg mb-2">
               <div className="flex justify-between items-center mb-2">
                 <span className="font-medium text-sm">Prescription #{rx.id?.slice(-4)}</span>
-                <span className={`text-xs px-2 py-1 rounded ${rx.status === 'PENDING' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}`}>
+                <GlassBadge variant={rx.status === 'PENDING' ? 'warning' : 'success'}>
                   {rx.status}
-                </span>
+                </GlassBadge>
               </div>
-              <ul className="text-sm text-gray-600 list-disc list-inside">
+              <ul className="text-sm text-muted-foreground list-disc list-inside">
                 {rx.medicines.map((m, idx) => (
                   <li key={idx}>{m.medicineName} {m.dosage} (x{m.quantity})</li>
                 ))}
               </ul>
             </div>
           ))}
-        </div>
+        </GlassCard>
       </div>
 
-      {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-xl w-[400px]">
-            <h3 className="text-lg font-bold mb-4">Complete Payment</h3>
-            <div className="bg-gray-50 p-4 rounded-lg mb-4 text-center">
-              <p className="text-sm text-gray-500 mb-2">
+      <GlassModal 
+        isOpen={!!showModal} 
+        onClose={() => setShowModal(null)}
+        title="Complete Payment"
+      >
+        {showModal && (
+          <div className="space-y-4">
+            <div className="bg-[var(--glass-bg)] border border-[var(--glass-border)] p-4 rounded-xl mb-4 text-center">
+              <p className="text-sm text-muted-foreground mb-2">
                 {showModal.paymentMethod === PaymentMethod.QRIS ? "Scan QR Code" : "Virtual Account Number"}
               </p>
               <div className="font-mono text-xl font-bold break-all">
@@ -372,20 +379,20 @@ export const PatientDashboard = () => {
             <div className="flex gap-3">
               <button 
                 onClick={() => setShowModal(null)}
-                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium"
+                className="flex-1 px-4 py-2 border border-[var(--glass-border)] rounded-lg font-medium hover:bg-[var(--glass-border)] transition-colors focus-ring"
               >
                 Cancel
               </button>
               <button 
                 onClick={() => handlePay(showModal.id!)}
-                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg font-medium"
+                className="flex-1 px-4 py-2 bg-[var(--color-success)] text-white rounded-lg font-medium hover:opacity-90 shadow-lg shadow-[var(--color-success)]/20 transition-all focus-ring"
               >
                 Simulate Payment
               </button>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </GlassModal>
     </div>
   );
 };
