@@ -131,22 +131,18 @@ export async function emailPasswordLoginAction(email: string, password: string) 
       return { success: false, error: 'Email atau password salah' };
     }
 
-    // 2. Lookup or create user in MongoDB
-    const userRepository = new MongoUserRepository();
-    let user = await userRepository.findByEmail(account.email);
-    
-    if (!user) {
-      user = await userRepository.create({
-        firebaseUid: `mock-${account.role}-${Date.now()}`,
-        email: account.email,
-        name: account.name,
-        role: account.role,
-        hospitalId: 'default-hospital-id',
-        specialization: account.specialization,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
-    }
+    // 2. Mock user completely for Dummy Accounts to bypass MongoDB
+    const user = {
+      id: `mock-id-${Date.now()}`,
+      firebaseUid: `mock-${account.role}-${Date.now()}`,
+      email: account.email,
+      name: account.name,
+      role: account.role,
+      hospitalId: 'default-hospital-id',
+      specialization: account.specialization,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
 
     // 3. Set session cookie
     const jwtSecret = new TextEncoder().encode(process.env.JWT_SECRET || 'fallback-secret-key-for-dev-only');
