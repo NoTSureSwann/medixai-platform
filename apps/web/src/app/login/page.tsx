@@ -64,12 +64,12 @@ export default function LoginPage() {
 
         <form className="space-y-4" onSubmit={handleEmailLogin}>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email / Username</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
             <input 
-              type="text" 
+              type="email" 
               required
               className="w-full p-2.5 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="pasien.goklinik.platform.idn"
+              placeholder="user@gmail.com"
               value={email}
               onChange={e => setEmail(e.target.value)}
             />

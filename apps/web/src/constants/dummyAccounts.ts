@@ -10,26 +10,26 @@ export interface DummyAccount {
 
 export const DUMMY_ACCOUNTS: DummyAccount[] = [
   {
-    email: 'pasien.goklinik.platform.idn',
+    email: 'pasien.goklinik.platform.idn@gmail.com',
     password: 'GoKlinik2026!',
     name: 'Pasien GoKlinik',
     role: UserRole.PATIENT,
   },
   {
-    email: 'farmasi.goklinik.platform.idn',
+    email: 'farmasi.goklinik.platform.idn@gmail.com',
     password: 'GoKlinik2026!',
     name: 'Farmasi GoKlinik',
     role: UserRole.PHARMACY,
   },
   {
-    email: 'dokter.goklinik.platform.idn',
+    email: 'dokter.goklinik.platform.idn@gmail.com',
     password: 'GoKlinik2026!',
     name: 'Dr. GoKlinik',
     role: UserRole.DOCTOR,
     specialization: 'General Practice',
   },
   {
-    email: 'admin.goklinik.platform.idn',
+    email: 'admin.goklinik.platform.idn@gmail.com',
     password: 'GoKlinik2026!',
     name: 'Admin GoKlinik',
     role: UserRole.ADMIN,
