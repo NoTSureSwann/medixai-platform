@@ -8,7 +8,6 @@ async function seed() {
   try {
     const { EmbeddingsClient } = await import('../src/infrastructure/ai-gateway/EmbeddingsClient');
     const { MongoKnowledgeRepository } = await import('../src/infrastructure/database/repositories/MongoKnowledgeRepository');
-    const { default: clientPromise } = await import('../src/infrastructure/database/mongodb');
 
     const embeddingsClient = new EmbeddingsClient();
     const repo = new MongoKnowledgeRepository();
