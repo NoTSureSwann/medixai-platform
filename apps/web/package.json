@@ -1,5 +1,5 @@
 {
-  "name": "@medixai/web",
+  "name": "@goklinik/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -20,6 +20,7 @@
     "firebase": "^12.15.0",
     "firebase-admin": "^14.1.0",
     "html2pdf.js": "^0.14.0",
+    "jose": "^6.2.3",
     "leaflet": "^1.9.4",
     "lucide-react": "^1.22.0",
     "mongodb": "^7.4.0",

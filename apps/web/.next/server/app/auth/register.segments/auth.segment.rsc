@@ -1,4 +1,0 @@
-1:"$Sreact.fragment"
-2:I[11562,["/_next/static/chunks/2euxiay66f10-.js","/_next/static/chunks/1vm6yorl-a8u8.js"],"default"]
-3:I[49010,["/_next/static/chunks/2euxiay66f10-.js","/_next/static/chunks/1vm6yorl-a8u8.js"],"default"]
-0:{"rsc":["$","$1","c",{"children":[null,["$","div",null,{"className":"min-h-screen bg-gray-50 flex items-center justify-center p-4","children":["$","div",null,{"className":"w-full max-w-md","children":[["$","div",null,{"className":"text-center mb-8","children":[["$","h1",null,{"className":"text-2xl font-bold text-gray-900","children":"MedixAI"}],["$","p",null,{"className":"text-gray-500 mt-1 text-sm","children":"Enterprise Medical Intelligence"}]]}],["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"afwRNpvWeIHQGkCfVkyV2"}

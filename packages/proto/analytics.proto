@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package analytics;
 
-option go_package = "github.com/medixai/analytics-service/proto/analytics";
+option go_package = "github.com/goklinik/analytics-service/proto/analytics";
 
 service AnalyticsService {
   rpc TrackActivity (ActivityRequest) returns (ActivityResponse);

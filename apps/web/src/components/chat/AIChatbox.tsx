@@ -15,7 +15,7 @@ interface AIChatboxProps {
 
 export const AIChatbox = ({ currentRole }: AIChatboxProps) => {
   const [messages, setMessages] = useState<Message[]>([
-    { role: "ai", content: "Hello! I am MedixAI. How can I assist you today?" }
+    { role: "ai", content: "Hello! I am GoKlinik. How can I assist you today?" }
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -75,7 +75,7 @@ export const AIChatbox = ({ currentRole }: AIChatboxProps) => {
             <Bot className="w-5 h-5 text-blue-600" />
           </div>
           <div>
-            <h2 className="font-semibold text-gray-900 text-sm">MedixAI Assistant</h2>
+            <h2 className="font-semibold text-gray-900 text-sm">GoKlinik Assistant</h2>
             <p className="text-xs text-green-600">Online</p>
           </div>
         </div>
@@ -114,7 +114,7 @@ export const AIChatbox = ({ currentRole }: AIChatboxProps) => {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={`Ask MedixAI as a ${currentRole.toLowerCase()}...`}
+            placeholder={`Ask GoKlinik as a ${currentRole.toLowerCase()}...`}
             className="w-full pl-4 pr-12 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             disabled={isLoading}
           />

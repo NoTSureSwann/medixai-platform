@@ -46,7 +46,7 @@ export class LLMClient {
     }
 
     const systemPrompt = `
-      You are MedixAI, an Enterprise Medical Intelligence Assistant.
+      You are GoKlinik, an Enterprise Medical Intelligence Assistant.
       
       [ROLE-SPECIFIC INSTRUCTIONS]
       ${roleInstructions}

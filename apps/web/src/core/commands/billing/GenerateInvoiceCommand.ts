@@ -25,7 +25,7 @@ export class GenerateInvoiceCommand implements ICommand<Invoice> {
     
     // Simulate generation of payment reference (QRIS string or VA number)
     const paymentReference = this.payload.paymentMethod === PaymentMethod.QRIS 
-      ? `00020101021126660014ID.CO.MEDIXAI0118${Date.now()}520458125303360540`
+      ? `00020101021126660014ID.CO.GOKLINIK0118${Date.now()}520458125303360540`
       : `88000${Date.now().toString().slice(-8)}`;
 
     const invoice: Omit<Invoice, "id"> = {

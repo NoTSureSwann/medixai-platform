@@ -1,4 +1,4 @@
-module github.com/medixai/analytics-service
+module github.com/goklinik/analytics-service
 
 go 1.21
 

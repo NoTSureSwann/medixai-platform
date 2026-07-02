@@ -150,6 +150,9 @@ importers:
       html2pdf.js:
         specifier: ^0.14.0
         version: 0.14.0
+      jose:
+        specifier: ^6.2.3
+        version: 6.2.3
       leaflet:
         specifier: ^1.9.4
         version: 1.9.4

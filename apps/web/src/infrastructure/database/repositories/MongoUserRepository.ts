@@ -8,7 +8,7 @@ export class MongoUserRepository implements IUserRepository {
 
   private async getCollection() {
     const client = await clientPromise;
-    return client.db("medixai").collection<Omit<User, "id">>(this.collectionName);
+    return client.db("goklinik").collection<Omit<User, "id">>(this.collectionName);
   }
 
   private mapDocumentToUser(doc: Record<string, unknown>): User {

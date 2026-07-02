@@ -6,7 +6,7 @@ import { IBillingRepository } from "@/core/interfaces/IBillingRepository";
 export class MongoBillingRepository implements IBillingRepository {
   private async getCollection(): Promise<Collection> {
     const client = await clientPromise;
-    const db = client.db("medixai");
+    const db = client.db("goklinik");
     return db.collection("invoices");
   }
 

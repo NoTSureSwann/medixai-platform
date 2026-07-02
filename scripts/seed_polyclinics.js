@@ -30,11 +30,11 @@ const polyclinics = [
 }));
 
 async function seed() {
-  const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/medixai";
+  const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/goklinik";
   const client = new MongoClient(uri);
   try {
     await client.connect();
-    const db = client.db("medixai");
+    const db = client.db("goklinik");
     const coll = db.collection("polyclinics");
     // Clear existing
     await coll.deleteMany({});

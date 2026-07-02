@@ -17,7 +17,7 @@ export class DiagnosticAgent implements IAgent {
     const historyText = context.history.map(m => `${m.role.toUpperCase()}: ${m.content}`).join("\n");
     
     const systemPrompt = `
-      You are MedixAI Diagnostic Agent, specialized in clinical and medical reasoning.
+      You are GoKlinik Diagnostic Agent, specialized in clinical and medical reasoning.
       
       [ROLE: ${context.role}]
       If User is PATIENT: Explain in simple terms. DO NOT prescribe. Remind them to see a doctor.

@@ -8,7 +8,7 @@ export class MongoAppointmentRepository implements IAppointmentRepository {
 
   private async getCollection() {
     const client = await clientPromise;
-    return client.db("medixai").collection<Omit<Appointment, "id">>(this.collectionName);
+    return client.db("goklinik").collection<Omit<Appointment, "id">>(this.collectionName);
   }
 
   private mapDocumentToAppt(doc: Record<string, unknown>): Appointment {

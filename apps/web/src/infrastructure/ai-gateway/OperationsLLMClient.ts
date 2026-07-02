@@ -15,7 +15,7 @@ export class OperationsLLMClient {
 
   async generateOpsResponse(intent: string, query: string, sessionData: Record<string, unknown>, context: string[]): Promise<string> {
     const systemPrompt = `
-      You are the MedixAI Operations Assistant.
+      You are the GoKlinik Operations Assistant.
       Intent Detected: ${intent}
       
       Constraints:

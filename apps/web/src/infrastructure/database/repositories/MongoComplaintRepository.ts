@@ -5,7 +5,7 @@ import { Complaint } from "@/core/entities/Complaint";
 export class MongoComplaintRepository {
   private async getCollection(): Promise<Collection> {
     const client = await clientPromise;
-    const db = client.db("medixai");
+    const db = client.db("goklinik");
     return db.collection("complaints");
   }
 

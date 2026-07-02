@@ -1,4 +1,4 @@
-# MedixAI Fine-Tuning Training Data
+# GoKlinik Fine-Tuning Training Data
 
 This folder is designated for preparing your Medical AI training datasets. The standard format for fine-tuning modern LLMs (like Llama, GPT, or PaLM/Gemini) is `.jsonl` (JSON Lines).
 
@@ -9,8 +9,8 @@ A `.jsonl` file must contain exactly one valid JSON object per line. Do not add 
 Most modern chat models use a conversational format:
 
 ```jsonl
-{"messages": [{"role": "system", "content": "You are MedixAI Parameter 1, a medical assistant."}, {"role": "user", "content": "Pasien mengeluh demam dan bintik merah."}, {"role": "assistant", "content": "Berdasarkan gejala, ini indikasi Demam Berdarah Dengue (DBD). Lakukan cek darah rutin."}]}
-{"messages": [{"role": "system", "content": "You are MedixAI Parameter 2, a hospital assistant."}, {"role": "user", "content": "Berapa antrian poli penyakit dalam?"}, {"role": "assistant", "content": "Saat ini terdapat 12 antrian aktif di Poli Penyakit Dalam dengan estimasi tunggu 45 menit."}]}
+{"messages": [{"role": "system", "content": "You are GoKlinik Parameter 1, a medical assistant."}, {"role": "user", "content": "Pasien mengeluh demam dan bintik merah."}, {"role": "assistant", "content": "Berdasarkan gejala, ini indikasi Demam Berdarah Dengue (DBD). Lakukan cek darah rutin."}]}
+{"messages": [{"role": "system", "content": "You are GoKlinik Parameter 2, a hospital assistant."}, {"role": "user", "content": "Berapa antrian poli penyakit dalam?"}, {"role": "assistant", "content": "Saat ini terdapat 12 antrian aktif di Poli Penyakit Dalam dengan estimasi tunggu 45 menit."}]}
 ```
 
 ## How to Use

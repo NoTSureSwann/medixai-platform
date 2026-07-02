@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Topbar } from "@/components/layout/Topbar";
 import { useAuth } from "@/contexts/AuthContext";
-import { useRouter } from "next/navigation";
 
 export default function DashboardLayout({
   children,
@@ -12,14 +11,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const { user } = useAuth();
-  const router = useRouter();
 
-  useEffect(() => {
-    if (!user) {
-      router.push("/login");
-    }
-  }, [user, router]);
-
+  // Edge Middleware already handles auth redirects.
+  // We only need a loading state while client-side hydration restores user from localStorage.
   if (!user) {
     return <div className="h-screen w-full flex items-center justify-center bg-gray-50">Loading...</div>;
   }

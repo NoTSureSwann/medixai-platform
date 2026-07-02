@@ -11,7 +11,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Activity className="w-6 h-6 text-blue-600" />
-            <span className="text-xl font-bold text-gray-900">MedixAI</span>
+            <span className="text-xl font-bold text-gray-900">GoKlinik</span>
           </div>
           
           <div className="hidden md:flex items-center gap-8 text-gray-600 text-sm font-medium">
@@ -42,7 +42,7 @@ export default function LandingPage() {
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-sm font-medium border border-blue-200">
             <Zap className="w-4 h-4" />
-            <span>MedixAI Enterprise Platform is Live</span>
+            <span>GoKlinik Enterprise Platform is Live</span>
           </div>
           
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 tracking-tight leading-tight">
@@ -107,7 +107,7 @@ export default function LandingPage() {
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <Activity className="w-6 h-6 text-blue-600" />
-              <span className="text-xl font-bold text-gray-900">MedixAI</span>
+              <span className="text-xl font-bold text-gray-900">GoKlinik</span>
             </div>
             <p className="text-gray-600 text-sm max-w-sm mb-6">
               The leading Enterprise Medical Intelligence Platform. We empower hospitals with AI-driven diagnostics, seamless data integration, and geospatial insights.
@@ -129,13 +129,13 @@ export default function LandingPage() {
             <ul className="space-y-2 text-sm text-gray-600">
               <li>📍 Menara Bidakara, Jakarta Selatan, Indonesia</li>
               <li>📞 +62 21 555 1234</li>
-              <li>✉️ contact@medixai.co.id</li>
+              <li>✉️ contact@goklinik.co.id</li>
             </ul>
           </div>
         </div>
         
         <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-500">
-          &copy; {new Date().getFullYear()} MedixAI Enterprise Platform. All rights reserved.
+          &copy; {new Date().getFullYear()} GoKlinik Enterprise Platform. All rights reserved.
         </div>
       </footer>
     </div>

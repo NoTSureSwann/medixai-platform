@@ -3,7 +3,7 @@ version: '3.8'
 services:
   mongodb:
     image: mongo:latest
-    container_name: medixai_mongo
+    container_name: goklinik_mongo
     ports:
       - '27017:27017'
     volumes:
@@ -11,7 +11,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: medixai_rabbitmq
+    container_name: goklinik_rabbitmq
     ports:
       - '5672:5672'
       - '15672:15672'
@@ -21,7 +21,7 @@ services:
 
   redis:
     image: redis:latest
-    container_name: medixai_redis
+    container_name: goklinik_redis
     ports:
       - '6379:6379'
 

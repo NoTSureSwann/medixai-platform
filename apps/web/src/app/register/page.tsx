@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { UserRole, User } from "@/core/entities/User";
 import { useRouter } from "next/navigation";
+import { registerAction } from "../actions/authActions";
 
 export default function RegisterPage() {
   const { login } = useAuth();
@@ -16,32 +17,30 @@ export default function RegisterPage() {
     role: UserRole.PATIENT,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Create dummy user from form data
-    const newUser: User = {
-      id: "usr-" + Math.floor(Math.random() * 10000),
-      firebaseUid: "f-" + Math.floor(Math.random() * 10000),
-      email: formData.email,
+    // Call server action to register user and sign session
+    const res = await registerAction({
       name: formData.name,
-      role: formData.role,
-      hospitalId: "hosp-1", // Default hospital
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      ...(formData.role === UserRole.PATIENT ? { medicalRecordNumber: "MRN-NEW" } : {}),
-      ...(formData.role === UserRole.DOCTOR ? { specialization: "General Practice" } : {}),
-    };
+      email: formData.email,
+      role: formData.role
+    });
 
-    login(newUser);
-    router.push("/dashboard");
+    if (res.success && res.user) {
+      // Update local client state
+      login(res.user as User);
+      router.push("/dashboard");
+    } else {
+      alert("Registration failed: " + (res.error || "Unknown error"));
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
       <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-blue-600 mb-2">MedixAI</h1>
+          <h1 className="text-3xl font-bold text-blue-600 mb-2">GoKlinik</h1>
           <p className="text-gray-500">Create a new account</p>
         </div>
 

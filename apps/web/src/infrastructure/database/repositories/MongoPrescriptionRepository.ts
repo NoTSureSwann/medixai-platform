@@ -6,7 +6,7 @@ import { IPrescriptionRepository } from "@/core/interfaces/IPrescriptionReposito
 export class MongoPrescriptionRepository implements IPrescriptionRepository {
   private async getCollection(): Promise<Collection> {
     const client = await clientPromise;
-    const db = client.db("medixai");
+    const db = client.db("goklinik");
     return db.collection("prescriptions");
   }
 

@@ -7,7 +7,7 @@ export class MongoMemoryRepository {
 
   private async getCollection(): Promise<Collection<Omit<ConversationMemory, "id">>> {
     const client = await clientPromise;
-    return client.db("medixai").collection<Omit<ConversationMemory, "id">>(this.collectionName);
+    return client.db("goklinik").collection<Omit<ConversationMemory, "id">>(this.collectionName);
   }
 
   async getSessionMemory(userId: string, sessionId: string): Promise<ConversationMemory | null> {

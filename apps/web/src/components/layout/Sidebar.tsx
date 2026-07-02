@@ -16,7 +16,7 @@ export const Sidebar = ({ currentRole }: { currentRole: UserRole }) => {
     <aside className="w-64 h-screen bg-white border-r border-gray-200 flex-col hidden md:flex">
       <div className="p-5 border-b border-gray-200 flex items-center gap-3">
         <Activity className="w-6 h-6 text-blue-600" />
-        <span className="text-xl font-bold text-gray-900">MedixAI</span>
+        <span className="text-xl font-bold text-gray-900">GoKlinik</span>
       </div>
       
       <nav className="flex-1 overflow-y-auto p-3 space-y-1">

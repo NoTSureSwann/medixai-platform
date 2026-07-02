@@ -30,7 +30,7 @@ export default function DashboardPage() {
   return (
     <>
       <div className="bg-white p-6 rounded-lg border border-gray-200">
-        <h1 className="text-2xl font-bold text-gray-900">Welcome to MedixAI Dashboard</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Welcome to GoKlinik Dashboard</h1>
         <p className="text-gray-600 text-sm mt-1">
           You are currently viewing as <span className="px-2 py-0.5 bg-blue-50 rounded text-blue-700 font-medium text-xs uppercase">{user.role}</span>.
         </p>

@@ -5,7 +5,7 @@ import { Polyclinic } from "@/core/entities/Polyclinic";
 export class MongoPolyclinicRepository {
   private async getCollection(): Promise<Collection> {
     const client = await clientPromise;
-    const db = client.db("medixai");
+    const db = client.db("goklinik");
     return db.collection("polyclinics");
   }
 

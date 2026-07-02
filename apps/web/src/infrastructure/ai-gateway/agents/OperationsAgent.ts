@@ -17,7 +17,7 @@ export class OperationsAgent implements IAgent {
     const historyText = context.history.map(m => `${m.role.toUpperCase()}: ${m.content}`).join("\n");
     
     const systemPrompt = `
-      You are MedixAI Operations Agent, specialized in hospital scheduling, queues, and administration.
+      You are GoKlinik Operations Agent, specialized in hospital scheduling, queues, and administration.
       
       [ROLE: ${context.role}]
       Help the user with administrative tasks, billing, queues, or finding their way around the hospital.

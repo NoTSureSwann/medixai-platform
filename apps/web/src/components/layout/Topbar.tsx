@@ -3,13 +3,15 @@ import React from "react";
 import { Bell, Search, User, LogOut } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
+import { logoutServerAction } from "@/app/actions/authActions";
 
 export const Topbar = () => {
   const { user, logout } = useAuth();
   const router = useRouter();
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logoutServerAction(); // Clear server-side session cookie
+    logout(); // Clear client-side state
     router.push("/login");
   };
 

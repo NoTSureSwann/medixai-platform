@@ -11,7 +11,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	pb "github.com/medixai/analytics-service/proto/analytics"
+	pb "github.com/goklinik/analytics-service/proto/analytics"
 )
 
 type server struct {
@@ -26,7 +26,7 @@ func (s *server) TrackActivity(ctx context.Context, req *pb.ActivityRequest) (*p
 	// Publish event to RabbitMQ
 	body := fmt.Sprintf(`{"userId":"%s","role":"%s","action":"%s","details":"%s"}`, req.UserId, req.Role, req.Action, req.Details)
 	err := s.rabbitCh.Publish(
-		"medixai_events", // exchange
+		"goklinik_events", // exchange
 		"activity.track", // routing key
 		false,            // mandatory
 		false,            // immediate
@@ -105,7 +105,7 @@ func main() {
 
 		// Declare Exchange
 		err = ch.ExchangeDeclare(
-			"medixai_events", // name
+			"goklinik_events", // name
 			"topic",          // type
 			true,             // durable
 			false,            // auto-deleted

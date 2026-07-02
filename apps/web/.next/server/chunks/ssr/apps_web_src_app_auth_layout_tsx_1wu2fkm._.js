@@ -1,3 +1,0 @@
-module.exports=[16661,a=>{"use strict";var b=a.i(22118);a.s(["default",0,function({children:a}){return(0,b.jsx)("div",{className:"min-h-screen bg-gray-50 flex items-center justify-center p-4",children:(0,b.jsxs)("div",{className:"w-full max-w-md",children:[(0,b.jsxs)("div",{className:"text-center mb-8",children:[(0,b.jsx)("h1",{className:"text-2xl font-bold text-gray-900",children:"MedixAI"}),(0,b.jsx)("p",{className:"text-gray-500 mt-1 text-sm",children:"Enterprise Medical Intelligence"})]}),a]})})}])},49374,a=>{a.n(a.i(16661))}];
-
-//# sourceMappingURL=apps_web_src_app_auth_layout_tsx_1wu2fkm._.js.map

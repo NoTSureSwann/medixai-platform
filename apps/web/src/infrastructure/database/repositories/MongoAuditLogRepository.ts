@@ -8,7 +8,7 @@ export class MongoAuditLogRepository implements IAuditLogRepository {
 
   private async getCollection(): Promise<Collection<Omit<AuditLog, "id">>> {
     const client = await clientPromise;
-    return client.db("medixai").collection<Omit<AuditLog, "id">>(this.collectionName);
+    return client.db("goklinik").collection<Omit<AuditLog, "id">>(this.collectionName);
   }
 
   private mapDocumentToAuditLog(doc: Record<string, unknown>): AuditLog {

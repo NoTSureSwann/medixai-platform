@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MedixAI — Enterprise Medical Intelligence Platform",
+  title: "GoKlinik — Enterprise Medical Intelligence Platform",
   description: "AI-powered hospital management platform with multi-agent diagnostics, role-based access, and multi-tenant architecture.",
 };
 

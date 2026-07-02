@@ -67,7 +67,7 @@ export const DUMMY_USERS: Record<string, User> = {
   [UserRole.PATIENT]: {
     id: "pat-123",
     firebaseUid: "f-pat-123",
-    email: "patient@medixai.com",
+    email: "patient@goklinik.com",
     name: "John Doe (Patient)",
     role: UserRole.PATIENT,
     hospitalId: "hosp-1",
@@ -78,7 +78,7 @@ export const DUMMY_USERS: Record<string, User> = {
   [UserRole.DOCTOR]: {
     id: "doc-456",
     firebaseUid: "f-doc-456",
-    email: "doctor@medixai.com",
+    email: "doctor@goklinik.com",
     name: "Dr. Sarah Smith",
     role: UserRole.DOCTOR,
     hospitalId: "hosp-1",
@@ -89,7 +89,7 @@ export const DUMMY_USERS: Record<string, User> = {
   [UserRole.PHARMACY]: {
     id: "phar-789",
     firebaseUid: "f-phar-789",
-    email: "pharmacy@medixai.com",
+    email: "pharmacy@goklinik.com",
     name: "Rx Pharmacy",
     role: UserRole.PHARMACY,
     hospitalId: "hosp-1",
@@ -99,7 +99,7 @@ export const DUMMY_USERS: Record<string, User> = {
   [UserRole.ADMIN]: {
     id: "adm-000",
     firebaseUid: "f-adm-000",
-    email: "admin@medixai.com",
+    email: "admin@goklinik.com",
     name: "System Admin",
     role: UserRole.ADMIN,
     hospitalId: "hosp-1",
