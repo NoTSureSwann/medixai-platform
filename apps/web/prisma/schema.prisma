@@ -1,0 +1,182 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  DOCTOR
+  PATIENT
+  LABORATORY
+  PHARMACY
+  NURSE
+  CASHIER
+}
+
+model User {
+  id                  String   @id @default(uuid())
+  firebaseUid         String   @unique
+  email               String   @unique
+  name                String
+  role                UserRole
+  hospitalId          String
+  departmentId        String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  medicalRecordNumber String?
+  specialization      String?
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+}
+
+model Appointment {
+  id            String            @id @default(uuid())
+  hospitalId    String
+  patientId     String
+  doctorId      String
+  department    String
+  scheduledTime DateTime
+  status        AppointmentStatus
+  notes         String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+}
+
+enum AuditAction {
+  LOGIN
+  CREATE_RECORD
+  UPDATE_RECORD
+  DELETE_RECORD
+  VIEW_SENSITIVE
+}
+
+model AuditLog {
+  id          String      @id @default(uuid())
+  hospitalId  String
+  userId      String
+  action      AuditAction
+  resource    String
+  resourceId  String?
+  details     Json?
+  ipAddress   String?
+  timestamp   DateTime    @default(now())
+}
+
+enum ComplaintStatus {
+  SUBMITTED
+  REVIEWING
+  APPOINTMENT_SCHEDULED
+  RESOLVED
+}
+
+model Complaint {
+  id            String          @id @default(uuid())
+  patientId     String
+  patientName   String?
+  polyclinicId  String
+  doctorId      String
+  symptoms      String
+  complaintText String
+  status        ComplaintStatus
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+model ConversationMemory {
+  id         String   @id @default(uuid())
+  userId     String
+  hospitalId String
+  sessionId  String
+  messages   Json     // List of Message objects
+  updatedAt  DateTime @updatedAt
+}
+
+model Hospital {
+  id           String   @id @default(uuid())
+  name         String
+  address      String
+  longitude    Float
+  latitude     Float
+  contactEmail String?
+  contactPhone String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+enum PaymentMethod {
+  QRIS
+  VIRTUAL_ACCOUNT
+  CASH
+}
+
+enum InvoiceStatus {
+  UNPAID
+  PAID
+  FAILED
+}
+
+model Invoice {
+  id               String        @id @default(uuid())
+  patientId        String
+  hospitalId       String
+  prescriptionId   String?
+  amount           Float
+  paymentMethod    PaymentMethod
+  status           InvoiceStatus
+  paymentReference String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+}
+
+model MedicalRecord {
+  id            String   @id @default(uuid())
+  appointmentId String
+  patientId     String
+  doctorId      String
+  hospitalId    String
+  soapNote      Json     // SOAPNote object
+  diagnoses     Json     // List of ICD10Code objects
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Polyclinic {
+  id              String   @id @default(uuid())
+  name            String
+  description     String
+  diseaseCategory String
+  doctors         Json?    // List of {id, name} objects
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+enum PrescriptionStatus {
+  PENDING
+  DISPENSED
+}
+
+model Prescription {
+  id                String             @id @default(uuid())
+  patientId         String
+  patientName       String?
+  doctorId          String
+  doctorName        String?
+  hospitalId        String
+  medicines         Json               // List of MedicineLineItem
+  pharmacyMedicines Json?              // List of MedicineLineItem
+  status            PrescriptionStatus
+  validationStatus  String
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+}

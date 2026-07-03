@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { adminAuth } from '@/infrastructure/firebase/firebaseAdmin';
-import { MongoUserRepository } from '@/infrastructure/database/repositories/MongoUserRepository';
+import { PrismaUserRepository } from '@/infrastructure/database/repositories/PrismaUserRepository';
 import { UserRole } from '@/core/entities/User';
 
 export interface AuthenticatedRequest extends Request {
@@ -48,8 +48,8 @@ export const withAuth = (
         return NextResponse.json({ error: 'Unauthorized: Invalid Firebase token' }, { status: 401 });
       }
 
-      // 2. Query MongoDB using Firebase UID
-      const userRepo = new MongoUserRepository();
+      // 2. Query PostgreSQL using Firebase UID
+      const userRepo = new PrismaUserRepository();
       const user = await userRepo.findByFirebaseUid(decodedToken.uid);
 
       if (!user) {

@@ -9,7 +9,8 @@ import { useAuth } from "@/contexts/AuthContext";
 import { GlassCard } from "@/components/ui/glass/GlassCard";
 import { GlassBadge } from "@/components/ui/glass/GlassBadge";
 import { GlassModal } from "@/components/ui/glass/GlassModal";
-import { Activity, Clock, ShieldCheck, FileText, ChevronRight } from "lucide-react";
+import { Activity, Clock, ShieldCheck, FileText, ChevronRight, Download } from "lucide-react";
+import { motion } from "framer-motion";
 
 export const PatientDashboard = () => {
   const { user } = useAuth();
@@ -185,12 +186,15 @@ export const PatientDashboard = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-bold flex items-center gap-2"><Activity className="text-[var(--color-info)]" /> Patient Overview</h2>
-        <button 
+        <motion.button 
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={downloadPDF}
-          className="px-4 py-2 bg-[var(--color-info)] text-white rounded-lg text-sm font-medium hover:opacity-90 focus-ring shadow-lg shadow-[var(--color-info)]/20 transition-all"
+          className="px-4 py-2.5 bg-gradient-to-r from-[var(--color-info)] to-blue-500 text-white rounded-xl text-sm font-semibold hover:opacity-90 shadow-xl shadow-[var(--color-info)]/30 transition-all flex items-center gap-2"
         >
-          Download Report (PDF)
-        </button>
+          <Download className="w-4 h-4" />
+          Export EMR Report
+        </motion.button>
       </div>
 
       {/* Ajukan Keluhan Baru */}

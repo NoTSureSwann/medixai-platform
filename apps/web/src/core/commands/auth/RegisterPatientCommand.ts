@@ -1,4 +1,4 @@
-import { MongoUserRepository } from "@/infrastructure/database/repositories/MongoUserRepository";
+import { PrismaUserRepository } from "@/infrastructure/database/repositories/PrismaUserRepository";
 import { UserRole } from "@/core/entities/User";
 
 export interface RegisterPatientDTO {
@@ -8,10 +8,10 @@ export interface RegisterPatientDTO {
 }
 
 export class RegisterPatientCommand {
-  private userRepo: MongoUserRepository;
+  private userRepo: PrismaUserRepository;
 
   constructor() {
-    this.userRepo = new MongoUserRepository();
+    this.userRepo = new PrismaUserRepository();
   }
 
   async execute(data: RegisterPatientDTO) {

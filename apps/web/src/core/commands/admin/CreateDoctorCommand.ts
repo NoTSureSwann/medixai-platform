@@ -1,4 +1,4 @@
-import { MongoUserRepository } from "@/infrastructure/database/repositories/MongoUserRepository";
+import { PrismaUserRepository } from "@/infrastructure/database/repositories/PrismaUserRepository";
 import { UserRole } from "@/core/entities/User";
 import { adminAuth } from "@/infrastructure/firebase/firebaseAdmin";
 
@@ -9,10 +9,10 @@ export interface CreateDoctorDTO {
 }
 
 export class CreateDoctorCommand {
-  private userRepo: MongoUserRepository;
+  private userRepo: PrismaUserRepository;
 
   constructor() {
-    this.userRepo = new MongoUserRepository();
+    this.userRepo = new PrismaUserRepository();
   }
 
   async execute(data: CreateDoctorDTO) {

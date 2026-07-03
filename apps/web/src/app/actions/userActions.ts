@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 import { UserRole } from '../../core/entities/User';
-import { MongoUserRepository } from '../../infrastructure/database/repositories/MongoUserRepository';
+import { PrismaUserRepository } from '../../infrastructure/database/repositories/PrismaUserRepository';
 import { cookies } from 'next/headers';
 import { jwtVerify } from 'jose';
 
@@ -37,7 +37,7 @@ export async function createDoctorAction(formData: z.infer<typeof CreateDoctorSc
     }
 
     // 3. Check if email already exists
-    const repo = new MongoUserRepository();
+    const repo = new PrismaUserRepository();
     const existingUser = await repo.findByEmail(parsed.data.email);
     if (existingUser) {
       return { success: false, error: "Email is already registered" };

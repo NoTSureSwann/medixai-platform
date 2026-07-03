@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { MongoUserRepository } from "@/infrastructure/database/repositories/MongoUserRepository";
+import { PrismaUserRepository } from "@/infrastructure/database/repositories/PrismaUserRepository";
 import { withErrorHandler } from "@/shared/middlewares/errorHandler";
 import { z } from "zod";
 import { UserRole } from "@/core/entities/User";
 
-const userRepo = new MongoUserRepository();
+const userRepo = new PrismaUserRepository();
 
 const createUserSchema = z.object({
   firebaseUid: z.string(),

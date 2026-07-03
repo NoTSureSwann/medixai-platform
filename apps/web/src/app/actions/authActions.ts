@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { adminAuth } from '../../infrastructure/firebase/firebaseAdmin';
-import { MongoUserRepository } from '../../infrastructure/database/repositories/MongoUserRepository';
+import { PrismaUserRepository } from '../../infrastructure/database/repositories/PrismaUserRepository';
 import { UserRole } from '../../core/entities/User';
 import { SignJWT } from 'jose';
 
@@ -38,8 +38,8 @@ export async function loginServerAction(idToken: string) {
       ? (idToken.replace('dummy-token-', '') as UserRole)
       : UserRole.PATIENT;
 
-    // 2. Lookup or create user in MongoDB
-    const userRepository = new MongoUserRepository();
+    // 2. Lookup or create user in PostgreSQL
+    const userRepository = new PrismaUserRepository();
     let user = await userRepository.findByFirebaseUid(firebaseUid);
     
     if (!user) {
@@ -79,7 +79,7 @@ export async function loginServerAction(idToken: string) {
 
 export async function registerAction(data: { name: string; email: string; role: UserRole }) {
   try {
-    const userRepository = new MongoUserRepository();
+    const userRepository = new PrismaUserRepository();
     let user = await userRepository.findByEmail(data.email);
     
     if (user) {
